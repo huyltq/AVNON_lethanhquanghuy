@@ -1,0 +1,181 @@
+<div class="">
+    <table class="w-full border-collapse bg-white text-left text-sm text-gray-500">
+        <thead class="bg-gray-50">
+            <tr>
+                <th scope="col" class="px-6 py-4 font-medium text-gray-900"></th>
+                <th scope="col" class="px-6 py-4 font-medium text-gray-900" *ngFor="let month of listMonths">
+                    {{month}}
+                </th>
+                <th scope="col" class="px-6 py-4 font-medium text-gray-900"></th>
+            </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100 border-t border-gray-100">
+            <tr>
+                <td class="w-100">
+                    <a class="font-bold text-xl"> Income </a>
+                </td>
+            </tr>
+            <ng-template ngFor let-ref [ngForOf]="data">
+
+                <tr class="">
+                    <td class="px-6 py-4 font-medium text-gray-900"><input
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            type="text" [id]="'first_focus_'+ref.index"></td>
+                    <td class="px-1 py-4 font-medium text-gray-900" *ngFor="let month of listMonths">
+                        <input
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            type="number" [id]="'parent_' + ref.index + '_' + month" (change)="recountIncome($event)">
+                    </td>
+                    <td class="flex justify-end gap-4 px-6 py-4 font-medium"><a
+                            (click)="deleteLine(ref.index)">Delete</a>
+                    </td>
+                </tr>
+                <tr *ngFor="let subData of ref.subData; let _i = index;">
+                    <td class="pl-10 pr-6 py-4 font-medium text-gray-900"><input
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            type="text"></td>
+                    <td class="px-1 py-4 font-medium text-gray-900" *ngFor="let month of listMonths">
+                        <input
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            type="number" [id]="'sub_' + ref.index + '_' + _i + '_' + month"
+                            (change)="recountIncome($event)">
+                    </td>
+                    <td class="flex justify-end gap-4 px-6 py-4 font-medium"><a
+                            (click)="deleteSubLine(ref.index,_i)">Delete</a>
+                </tr>
+                <tr>
+                    <td class="text-blue-600 pl-10">
+                        <button (click)="addNewSub(ref.index)">
+                            Add Sub
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="font-bold text-l">
+                        SubTotal
+                    </td>
+                    <td class="px-1 py-4 font-medium text-gray-900" *ngFor="let month of listMonths">
+                        <input readonly [id]="'subTotalIncome_'+ ref.index + '_' + month"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            type="number">
+                    </td>
+                </tr>
+                <tr class="h-5"></tr>
+            </ng-template>
+            <tr class="bg-blue-100">
+                <td class="font-bold text-l">
+                    Income Total
+                </td>
+                <td class="px-1 py-4 font-medium text-gray-900" *ngFor="let month of listMonths">
+                    <input
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        type="number" [id]="'totalIncome_'+ month" readonly>
+                </td>
+            </tr>
+            <tr>
+                <td class="font-bold text-l pt-20">
+                    <a (click)="newParent()"> Add New Parent Catetogory</a>
+                </td>
+            </tr>
+            <tr class="h-20"></tr>
+            <tr>
+                <td class="w-100">
+                    <a class="font-bold text-xl"> Expenses </a>
+                </td>
+            </tr>
+            <ng-template ngFor let-ref [ngForOf]="dataExpenses">
+                <tr class="">
+                    <td class="px-6 py-4 font-medium text-gray-900"><input
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            type="text"></td>
+                    <td class="px-1 py-4 font-medium text-gray-900" *ngFor="let month of listMonths">
+                        <input
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            type="number" [id]="'expensesparent_' + ref.index + '_' + month"
+                            (change)="recountExpenses($event)">
+                    </td>
+                    <td class="flex justify-end gap-4 px-6 py-4 font-medium"><a
+                            (click)="deleteExpensesLine(ref.index)">Delete</a>
+                    </td>
+                </tr>
+                <tr *ngFor="let subData of ref.subData; let _i = index;">
+                    <td class="pl-10 pr-6 py-4 font-medium text-gray-900"><input
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            type="text"></td>
+                    <td class="px-1 py-4 font-medium text-gray-900" *ngFor="let month of listMonths">
+                        <input
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            type="number" [id]="'expensessub_' + ref.index + '_' + _i + '_' + month"
+                            (change)="recountExpenses($event)">
+                    </td>
+                    <td class="flex justify-end gap-4 px-6 py-4 font-medium"><a
+                            (click)="deleteExpensesSubLine(ref.index,_i)">Delete</a>
+                </tr>
+                <tr>
+                    <td class="text-blue-600 pl-10">
+                        <button (click)="addNewExpensesSub(ref.index)">
+                            Add Sub
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="font-bold text-l">
+                        SubTotal
+                    </td>
+                    <td class="px-1 py-4 font-medium text-gray-900" *ngFor="let month of listMonths">
+                        <input readonly [id]="'subTotalExpenses_'+ ref.index + '_' + month"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            type="number">
+                    </td>
+                </tr>
+                <tr class="h-5"></tr>
+            </ng-template>
+            <tr class="bg-blue-100">
+                <td class="font-bold text-l">
+                    Expenses Total
+                </td>
+                <td class="px-1 py-4 font-medium text-gray-900" *ngFor="let month of listMonths">
+                    <input
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        type="number" [id]="'totalExpenses_'+ month" readonly>
+                </td>
+            </tr>
+            <tr>
+                <td class="font-bold text-l pt-20">
+                    <a (click)="newExpensesParent()"> Add New Parent Catetogory</a>
+                </td>
+            </tr>
+            <tr class="h-30"></tr>
+            <tr class="bg-red-100">
+                <td class="font-bold text-l">
+                    Profit / Loss
+                </td>
+                <td class="px-1 py-4 font-medium text-gray-900" *ngFor="let month of listMonths">
+                    <input
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        type="number" [id]="'profit_'+ month" readonly>
+                </td>
+            </tr>
+            <tr class="bg-red-100">
+                <td class="font-bold text-l">
+                    Opening Balance
+                </td>
+                <td class="px-1 py-4 font-medium text-gray-900" *ngFor="let month of listMonths">
+                    <input
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        type="number" [id]="'opening_balance'+ month">
+                </td>
+            </tr>
+            <tr class="bg-red-100">
+                <td class="font-bold text-l">
+                    Closing Balance
+                </td>
+                <td class="px-1 py-4 font-medium text-gray-900" *ngFor="let month of listMonths">
+                    <input
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        type="number" [id]="'closing_balance'+ month">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

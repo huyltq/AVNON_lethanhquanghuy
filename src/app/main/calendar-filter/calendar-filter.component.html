@@ -1,0 +1,16 @@
+<div id="date-range-picker" date-rangepicker>
+  <form [formGroup]="form" *ngIf="form" class="h-20 w-screen flex items-center justify-center bg-gray-200">
+    <span class="mx-4 text-gray-500">from</span>
+    <div class="relative">
+      <input id="datepicker-range-start" formControlName="from" type="month"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        placeholder="Select month start" (change)="changeFrom($event)">
+    </div>
+    <span class="mx-4 text-gray-500">to</span>
+    <div class="relative">
+      <input id="datepicker-range-end" formControlName="to" type="month"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        placeholder="Select date end" (change)="changeTo($event)">
+    </div>
+  </form>
+</div>
